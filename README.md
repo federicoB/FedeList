@@ -1,2 +1,2 @@
 # FedeList
-A c++ templated 
+A simple c++ multipurpouse list.
