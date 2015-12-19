@@ -24,7 +24,7 @@ class FedeList {
     /**
      * Create an empty FedeList.
      */
-    FedeList() throw (exception);
+    FedeList();
     
     /**
      * Create a FedeList with only a node containg the given element.

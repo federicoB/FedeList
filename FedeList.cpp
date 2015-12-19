@@ -1,32 +1,28 @@
-///* 
-// * File:   FedeList.cpp
-// * Author: fede
-// * 
-// * Created on 8 novembre 2015, 13.46
-// */
+/* 
+ * File:   FedeList.cpp
+ * Author: Federico Bertani
+ * 
+ * Created on 8 novembre 2015, 13.46
+ */
+
+#include "FedeList.hpp"
+
+template <class ListYpe> 
+FedeList<ListYpe>::FedeList() {
+    headCursor = NULL;
+    cursor = headCursor;
+    tailCursor = headCursor;
+    cursorPosition = 0;
+    listLength = 0;
+};
 //
-//#include <iostream>
-//#include <exception>
-//
-//#include "FedeList.hpp"
-//
-//using namespace std;
-//
-//template <class TipoLista> 
-//FedeList<TipoLista>::FedeList() {
-//    head = NULL;
-//    cursor = head;
-//    cursorPosition = 0;
-//    listLength = 0;
-//};
-////
-//template <class TipoLista> 
-//FedeList<TipoLista>::~FedeList() {
-//
+//template <class ListType> 
+//FedeList<ListType>::~FedeList() {
+//    
 //}
-////
-//template <class TipoLista> 
-//void FedeList<TipoLista>::add(TipoLista tipolista) {
+//
+//template <class ListType> 
+//void FedeList<ListType>::add(ListType tipolista) {
 //    if (head == NULL) {
 //        head = new Elemento();
 //        head->next = NULL;
