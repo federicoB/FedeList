@@ -1,6 +1,6 @@
 /* 
  * File:   FedeList.h
- * Author: fede
+ * Author: Federico Bertani
  *
  * Created on 16 novembre 2015, 19.01
  */
@@ -8,33 +8,35 @@
 #ifndef FEDELIST_H
 #define	FEDELIST_H
 
-#include <cstring>
 #include <exception>
+#include "Node.hpp"
 
 using namespace std;
 
-template <class TipoLista> class FedeList {
+/**
+ * FedeList in a multipurpouse list implemented with a template class.
+ * It's offers static adding time and linear searching time.
+ */
+template <class ListType> 
+class FedeList {
+    FedeList() throw (exception);
+    FedeList(ListType element);
+    FedeList(const FedeList& orig) throw (exception);
+    virtual ~FedeList(); 
+    FedeList* push_front(ListType element)  throw (exception);
+    ListType get(int position) throw (exception);
+    ListType get(ListType element) throw (exception);
+    FedeList* remove(int position)  throw (exception);    
+    FedeList* remove(ListType element)  throw (exception); 
 protected:
-    struct Elemento {
-        TipoLista valore;
-        Elemento* next = NULL;
-    };
-    typedef Elemento* Epointer;
-    Epointer head;
-    Epointer cursor;
-    Epointer cursorCoda;
+    typedef Node<ListType>* NodePointer;
+    NodePointer headCursor;
+    NodePointer tailCursor;
+    NodePointer cursor;
     int cursorPosition;
-    int lunghezzaLista;
-    virtual void prepareSearch(int posizione) throw (exception);
-    Epointer search(int posizione);
-public:
-    FedeList();
-    FedeList(const FedeList& orig);
-    virtual ~FedeList();
-    virtual void add(TipoLista tipolista);
-    //ritorna l'elemento della lista in una certa posizione
-    virtual TipoLista get(int posizione) throw (exception);
-    void remove(Epointer p, int posizione);
+    int listLength;
+   // void prepareSearch(int posizione) throw (exception);
+   // NodePointer search(int posizione);
 };
 
 #endif	/* FEDELIST_H */
