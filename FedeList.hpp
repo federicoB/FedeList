@@ -30,7 +30,7 @@ class FedeList {
      * Create a FedeList with only a node containg the given element.
      * @param element ListType: the element to put as first node
      */
-    FedeList(ListType element);
+    FedeList(ListType element) throw (exception);
     
     /**
      * Clone an existing Fedelist
@@ -97,7 +97,7 @@ class FedeList {
      */
     FedeList* remove(ListType element) throw (exception); 
 protected:
-    typedef Node<ListType>* NodePointer; //a type that rapresent a pointer to a Node
+    typedef Node<ListType>* NodePointer; //a type that represent a pointer to a Node
     NodePointer headCursor; //a pointer that always point to the head of the list
     NodePointer tailCursor; //a pointer that always point to the tail of the list
     NodePointer cursor; //a pointer to a node that read the list up and down
