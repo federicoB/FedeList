@@ -14,7 +14,7 @@
 template <class ListType>
 class Node {
 public:
-    Node(ListType* value,Node* prev,Node* next);
+    Node(ListType* value,Node* prev=NULL,Node* next=NULL);
     Node(const Node& orig);
     ListType getValue();
     virtual ~Node();
