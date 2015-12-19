@@ -17,6 +17,10 @@ public:
     Node(ListType* value,Node* prev=NULL,Node* next=NULL);
     Node(const Node& orig);
     ListType getValue();
+    void setNext(Node* node);
+    void setPrev(Node* node);
+    Node* getNext();
+    Node* getPrev();
     virtual ~Node();
 private:
     ListType value;
