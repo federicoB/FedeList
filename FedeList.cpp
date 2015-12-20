@@ -16,7 +16,7 @@ FedeList<ListType>::FedeList() {
     cursor = headCursor;
     tailCursor = headCursor;
     cursorPosition = 0;
-    listLength = 0;
+    listSize = 0;
 };
 
 template <class ListType> 
@@ -24,6 +24,7 @@ FedeList<ListType>::FedeList(ListType element) throw (exception){
     if (element!=NULL) {
     FedeList();
     this->push_back(element);
+    listSize++;
     } else throw (exception());
 }
 
@@ -34,6 +35,7 @@ FedeList<ListType>::FedeList(const FedeList& orig) throw (exception){
     int originSize = orig.getSize();
     for (int i=0;i<originSize;i++) {
         this->push_back(orig.get(i));
+        listSize++;
     }
     } else throw(exception());
 }
@@ -43,11 +45,12 @@ FedeList<ListType>::~FedeList() {
     cursor = headCursor;
     cursorPosition = 0; //TODO creating a class cursor that automatically do this.
     NodePointer cursorToDelete;
-    for (int i=0;i<listLength;i++) {
+    for (int i=0;i<listSize;i++) {
         cursorToDelete = cursor;
         cursor = cursor->getNext();
         cursorPosition++;
         delete cursorToDelete;
+        listSize--;
     }
 }
 
@@ -59,6 +62,7 @@ FedeList<ListType>* FedeList<ListType>::push_front(ListType element) throw (exce
             headCursor->setPrev(tmp);
             headCursor = tmp;
         } else headCursor = new Node<ListType>(element);
+        listSize++;
     } else throw(new exception());
     return (this);
 };
@@ -71,6 +75,7 @@ FedeList<ListType>* FedeList<ListType>::push_back(ListType element) throw (excep
             tailCursor->setNext(tmp);
             tailCursor = tmp;
         } else tailCursor = new Node<ListType>(element);
+        listSize++;
     } else throw(new exception());
     return (this);
 };
