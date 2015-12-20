@@ -107,5 +107,7 @@ protected:
    // NodePointer search(int posizione);
 };
 
+#include "FedeList.cpp"
+
 #endif	/* FEDELIST_H */
 

@@ -5,22 +5,33 @@
  * Created on 8 novembre 2015, 13.46
  */
 
+#ifndef FEDELIST_CPP
+#define	FEDELIST_CPP
+
 #include "FedeList.hpp"
 
-template <class ListYpe> 
-FedeList<ListYpe>::FedeList() {
+template <class ListType> 
+FedeList<ListType>::FedeList() {
     headCursor = NULL;
     cursor = headCursor;
     tailCursor = headCursor;
     cursorPosition = 0;
     listLength = 0;
 };
-//
-//template <class ListType> 
-//FedeList<ListType>::~FedeList() {
-//    
-//}
-//
+
+template <class ListType> 
+FedeList<ListType>::~FedeList() {
+    cursor = headCursor;
+    cursorPosition = 0; //TODO creating a class cursor that automatically do this.
+    NodePointer cursorToDelete;
+    for (int i=0;i<listLength;i++) {
+        cursorToDelete = cursor;
+        cursor = cursor->getNext();
+        cursorPosition++;
+        delete cursorToDelete;
+    }
+}
+
 template <class ListType> 
 FedeList<ListType>* FedeList<ListType>::push_front(ListType element) throw (exception) {
     if (element!=NULL) {
@@ -81,3 +92,5 @@ FedeList<ListType>* FedeList<ListType>::push_back(ListType element) throw (excep
 //        search(posizione);
 //    }
 //}
+
+#endif	/* FEDELIST_CPP */
