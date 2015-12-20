@@ -28,5 +28,7 @@ private:
     Node* prev;
 };
 
+#include "Node.cpp"
+
 #endif	/* NODE_H */
 

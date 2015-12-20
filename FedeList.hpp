@@ -30,7 +30,7 @@ class FedeList {
      * Create a FedeList with only a node containg the given element.
      * @param element ListType: the element to put as first node
      */
-    FedeList(ListType* element) throw (exception);
+    FedeList(ListType element) throw (exception);
     
     /**
      * Clone an existing Fedelist

@@ -5,6 +5,9 @@
  * Created on 18 dicembre 2015, 14.55
  */
 
+#ifndef NODE_CPP
+#define	NODE_CPP
+
 #include "Node.hpp"
 
 template <class ListType>
@@ -46,4 +49,4 @@ Node<ListType>* Node<ListType>::getNext() {
    return next; 
 }
 
-
+#endif	/* NODE_H */

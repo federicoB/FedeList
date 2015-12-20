@@ -20,6 +20,14 @@ FedeList<ListType>::FedeList() {
 };
 
 template <class ListType> 
+FedeList<ListType>::FedeList(ListType element) throw (exception){
+    if (element!=NULL) {
+    FedeList();
+    this->push_back(element);
+    } else throw (exception());
+}
+
+template <class ListType> 
 FedeList<ListType>::~FedeList() {
     cursor = headCursor;
     cursorPosition = 0; //TODO creating a class cursor that automatically do this.
