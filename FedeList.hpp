@@ -86,7 +86,7 @@ class FedeList {
      * @param position: the position in the list of the element to get.
      * @return ListType*: the element from the list in the given position.
      */
-    ListType* get(int position) throw (exception);
+    ListType* get(int position) const throw (exception) ;
     
     /**
      * Get an element from the list that is equal to the element given.
@@ -114,7 +114,7 @@ class FedeList {
      * Return the size of the list from 0 to n.
      * @return int: the size of the list.
      */
-    int getSize();
+    int getSize() const;
 protected:
     typedef Node<ListType>* NodePointer; //a type that represent a pointer to a Node
     NodePointer headCursor; //a pointer that always point to the head of the list

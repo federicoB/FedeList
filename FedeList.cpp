@@ -72,6 +72,11 @@ FedeList<ListType>* FedeList<ListType>::push_back(ListType element) {
         listSize++;
     return (this);
 };
+
+template <class ListType> 
+int FedeList<ListType>::getSize() const {
+    return listSize;
+};
 //
 ////ritorna l'elemento della lista in una certa posizione
 //template <class TipoLista> 
