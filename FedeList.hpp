@@ -20,7 +20,7 @@ using namespace std;
  */
 template <class ListType> 
 class FedeList {
-    
+    public:
     /**
      * Create an empty FedeList.
      */
@@ -30,7 +30,7 @@ class FedeList {
      * Create a FedeList with only a node containg the given element.
      * @param element ListType: the element to put as first node
      */
-    FedeList(ListType element) throw (exception);
+    FedeList(ListType* element) throw (exception);
     
     /**
      * Clone an existing Fedelist
@@ -81,7 +81,7 @@ class FedeList {
      * @param element ListType: the element for the comparison.
      * @return ListType*: the element from the list that is equal to the element given.
      */
-    ListType* get(ListType element) throw (exception);
+    ListType* getByElement(ListType element) throw (exception);
     
     /**
      * Remove from the list the element in the given position.
@@ -95,7 +95,7 @@ class FedeList {
      * @param element ListType: the element used for the comparison.
      * @return FedeList*: a pointer to the list object for method chaining.
      */
-    FedeList* remove(ListType element) throw (exception); 
+    FedeList* removeByElement(ListType element) throw (exception); 
 protected:
     typedef Node<ListType>* NodePointer; //a type that represent a pointer to a Node
     NodePointer headCursor; //a pointer that always point to the head of the list

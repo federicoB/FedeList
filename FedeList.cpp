@@ -22,14 +22,27 @@ FedeList<ListYpe>::FedeList() {
 //}
 //
 template <class ListType> 
-FedeList<ListType>* FedeList<ListType>::push_front(ListType tipolista) throw (exception) {
-    if (tipolista!=NULL) {
+FedeList<ListType>* FedeList<ListType>::push_front(ListType element) throw (exception) {
+    if (element!=NULL) {
         if (headCursor!=NULL) {
-            NodePointer tmp = new Node<ListType>(tipolista,headCursor);
+            NodePointer tmp = new Node<ListType>(element,NULL,headCursor);
             headCursor->setPrev(tmp);
             headCursor = tmp;
-        } else headCursor = new Node<ListType>(tipolista);
+        } else headCursor = new Node<ListType>(element);
     } else throw(new exception());
+    return (this);
+};
+
+template <class ListType> 
+FedeList<ListType>* FedeList<ListType>::push_back(ListType element) throw (exception) {
+    if (element!=NULL) {
+        if (tailCursor!=NULL) {
+            NodePointer tmp = new Node<ListType>(element,tailCursor);
+            tailCursor->setNext(tmp);
+            tailCursor = tmp;
+        } else tailCursor = new Node<ListType>(element);
+    } else throw(new exception());
+    return (this);
 };
 //
 ////ritorna l'elemento della lista in una certa posizione
