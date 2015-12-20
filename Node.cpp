@@ -12,7 +12,7 @@
 
 template <class ListType>
 Node<ListType>::Node(ListType* value,Node* prev,Node* next) {
-    this->value = value;
+    this->value = *value;
     this->prev = prev;
     this->next = next;
 }
@@ -23,6 +23,11 @@ Node<ListType>::Node(const Node& orig) {
     prev = orig.prev;
     next = orig.next;
 }
+
+template <class ListType>
+Node<ListType>::~Node() {
+
+}    
 
 template <class ListType>
 ListType Node<ListType>::getValue() {

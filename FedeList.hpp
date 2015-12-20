@@ -30,13 +30,13 @@ class FedeList {
      * Create a FedeList with only a node containg the given element.
      * @param element ListType: the element to put as first node
      */
-    FedeList(ListType element) throw (exception);
+    FedeList(ListType element);
     
     /**
      * Clone an existing Fedelist
      * @param orig Fedelist&: the Fedelist to clone
      */
-    FedeList(const FedeList& orig) throw (exception);
+    FedeList(const FedeList& orig);
     
     /**
      * Destroy a Fedelist.
@@ -48,29 +48,41 @@ class FedeList {
      * @param element ListType: the element to add.
      * @return FedeList*: a pointer to the list object for method chaining.
      */
-    FedeList* push_front(ListType element) throw (exception);
+    FedeList* push_front(ListType element);
     
      /**
      * Add an element in tail of the list.
      * @param element ListType: the element to add.
      * @return FedeList*: a pointer to the list object for method chaining.
      */
-    FedeList* push_back(ListType element) throw (exception);
+    FedeList* push_back(ListType element);
+    
+    /**
+     * Insert an element in a given position.
+     * Throw exception if the position is not valid.
+     * @param element ListType: the element to insert.
+     * @param position int: the position in the list where insert the element.
+     * @return FedeList*: a pointer to the list object for method chaining.
+     */
+    FedeList* insert(ListType element,int position) throw (exception);
     
     /**
      * Remove an element in the head of the list and return it.
+     * throw exception if the list is empty.
      * @return ListType*: the element in the head of the list.
      */
     ListType* pop_front() throw (exception);
     
     /**
      * Remove an element in the tail of the list and return it.
+     * throw exception if the list is empty.
      * @return ListType*: the element in the tail of the list.
      */
     ListType* pop_back() throw (exception);
     
     /**
      * Get an element from the list in the given position.
+     * throw exception if the position is not valid.
      * @param position: the position in the list of the element to get.
      * @return ListType*: the element from the list in the given position.
      */
@@ -79,12 +91,13 @@ class FedeList {
     /**
      * Get an element from the list that is equal to the element given.
      * @param element ListType: the element for the comparison.
-     * @return ListType*: the element from the list that is equal to the element given.
+     * @return ListType*: the element from the list that is equal to the element given null if not found.
      */
-    ListType* getByElement(ListType element) throw (exception);
+    ListType* getByElement(ListType element);
     
     /**
      * Remove from the list the element in the given position.
+     * throw exception if the position is not valid.
      * @param position int: the position in the list of the element to remove.
      * @return FedeList*: a pointer to the list object for method chaining.
      */
@@ -95,7 +108,7 @@ class FedeList {
      * @param element ListType: the element used for the comparison.
      * @return FedeList*: a pointer to the list object for method chaining.
      */
-    FedeList* removeByElement(ListType element) throw (exception); 
+    FedeList* removeByElement(ListType element); 
     
     /**
      * Return the size of the list from 0 to n.

@@ -20,24 +20,20 @@ FedeList<ListType>::FedeList() {
 };
 
 template <class ListType> 
-FedeList<ListType>::FedeList(ListType element) throw (exception){
-    if (element!=NULL) {
+FedeList<ListType>::FedeList(ListType element) {
     FedeList();
     this->push_back(element);
     listSize++;
-    } else throw (exception());
 }
 
 template <class ListType> 
-FedeList<ListType>::FedeList(const FedeList& orig) throw (exception){
-    if (orig != NULL) {
+FedeList<ListType>::FedeList(const FedeList& orig) {
     FedeList();
     int originSize = orig.getSize();
     for (int i=0;i<originSize;i++) {
-        this->push_back(orig.get(i));
+        this->push_back(*orig.get(i));
         listSize++;
     }
-    } else throw(exception());
 }
 
 template <class ListType> 
@@ -55,28 +51,25 @@ FedeList<ListType>::~FedeList() {
 }
 
 template <class ListType> 
-FedeList<ListType>* FedeList<ListType>::push_front(ListType element) throw (exception) {
-    if (element!=NULL) {
+FedeList<ListType>* FedeList<ListType>::push_front(ListType element) {
         if (headCursor!=NULL) {
-            NodePointer tmp = new Node<ListType>(element,NULL,headCursor);
+            //TODO fix that mess(is it needed?)
+            NodePointer tmp = new Node<ListType>(&element,(Node<ListType>*)NULL,headCursor);
             headCursor->setPrev(tmp);
             headCursor = tmp;
-        } else headCursor = new Node<ListType>(element);
+        } else headCursor = new Node<ListType>(&element);
         listSize++;
-    } else throw(new exception());
     return (this);
 };
 
 template <class ListType> 
-FedeList<ListType>* FedeList<ListType>::push_back(ListType element) throw (exception) {
-    if (element!=NULL) {
+FedeList<ListType>* FedeList<ListType>::push_back(ListType element) {
         if (tailCursor!=NULL) {
-            NodePointer tmp = new Node<ListType>(element,tailCursor);
+            NodePointer tmp = new Node<ListType>(&element,tailCursor);
             tailCursor->setNext(tmp);
             tailCursor = tmp;
-        } else tailCursor = new Node<ListType>(element);
+        } else tailCursor = new Node<ListType>(&element);
         listSize++;
-    } else throw(new exception());
     return (this);
 };
 //
