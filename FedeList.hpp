@@ -96,6 +96,12 @@ class FedeList {
      * @return FedeList*: a pointer to the list object for method chaining.
      */
     FedeList* removeByElement(ListType element) throw (exception); 
+    
+    /**
+     * Return the size of the list from 0 to n.
+     * @return int: the size of the list.
+     */
+    int getSize();
 protected:
     typedef Node<ListType>* NodePointer; //a type that represent a pointer to a Node
     NodePointer headCursor; //a pointer that always point to the head of the list

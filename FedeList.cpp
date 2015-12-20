@@ -28,6 +28,17 @@ FedeList<ListType>::FedeList(ListType element) throw (exception){
 }
 
 template <class ListType> 
+FedeList<ListType>::FedeList(const FedeList& orig) throw (exception){
+    if (orig != NULL) {
+    FedeList();
+    int originSize = orig.getSize();
+    for (int i=0;i<originSize;i++) {
+        this->push_back(orig.get(i));
+    }
+    } else throw(exception());
+}
+
+template <class ListType> 
 FedeList<ListType>::~FedeList() {
     cursor = headCursor;
     cursorPosition = 0; //TODO creating a class cursor that automatically do this.
