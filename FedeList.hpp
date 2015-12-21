@@ -59,6 +59,7 @@ class FedeList {
     
     /**
      * Insert an element in a given position.
+     * The element that previously was in that position shift ahead.
      * Throw exception if the position is not valid.
      * @param element ListType: the element to insert.
      * @param position int: the position in the list where insert the element.
@@ -122,8 +123,28 @@ protected:
     NodePointer cursor; //a pointer to a node that read the list up and down
     int cursorPosition; //the position of the cursor inside of the list, 0 based
     int listSize; //the lenght of the list starting from 1
-    void prepareSearch(int posizione);
-    NodePointer getNodePointer(int posizione);
+    
+    /**
+     * This set the cursor nearest possible to the position to search.
+     * It's called by getNodePointer
+     * @param posizione int: the position of the element to get.
+     */
+    void prepareSearch(int position);
+    
+    /**
+     * Get a node in the list given a position.
+     * throw an exception if the position is not valid
+     * @param position int: the position of the node to get.
+     * @return NodePointer: a pointer to the node to get
+     */
+    void moveCursor(int position) throw(exception);
+    
+    /**
+     * Check if the position given is valid throw an exception otherwise.
+     * @param position int: the position to check.
+     * @return true is the position is valid
+     */
+    bool checkPosition(int position) throw(exception);
 };
 
 #include "FedeList.cpp"

@@ -83,6 +83,16 @@ FedeList<ListType>* FedeList<ListType>::push_back(ListType element) {
 };
 
 template <class ListType>
+FedeList<ListType>* FedeList<ListType>::insert(ListType element, int position) throw(exception) {
+    moveCursor(position);
+    Node* node = new Node(element,cursor->getPrev(),cursor);
+    cursor->getPrev()->setNext(node);
+    cursor->setPrev(node);
+    cursorPosition++;
+    return (this);
+};
+
+template <class ListType>
 ListType* FedeList<ListType>::pop_front() throw (exception) {
     if (listSize > 0) {
         ListType* valueToReturn = new ListType;
@@ -124,23 +134,6 @@ template <class ListType>
 int FedeList<ListType>::getSize() const {
     return listSize;
 };
-//
-////ritorna l'elemento della lista in una certa posizione
-//template <class TipoLista> 
-//TipoLista FedeList<TipoLista>::get(int posizione) throw (exception) {
-//    prepareSearch(posizione);
-//    return (search(posizione))->valore;
-//};
-//
-//template <class TipoLista> 
-//void FedeList<TipoLista>::remove(NodePointer p, int posizione) {
-//    cursor = get(posizione-1); //ottengo l'elemento precedente
-//    NodePointer elementToDelete = cursor->next;
-//    NodePointer cursorNextNext = elementToDelete->next;
-//    cursor->next = cursorNextNext;
-//    delete elementToDelete;
-//};
-//
 
 template <class ListType>
 void FedeList<ListType>::prepareSearch(int position) {
@@ -158,16 +151,28 @@ void FedeList<ListType>::prepareSearch(int position) {
             cursorPosition = listSize;
         }
 }
-//
-//template <class TipoLista>
-//typename FedeList<TipoLista>::NodePointer FedeList<TipoLista>::search(int posizione) {
-//    if (cursorPosition == posizione) {
-//        return cursor;
-//    } else {
-//        cursorPosition++;
-//        cursor = cursor->next;
-//        search(posizione);
-//    }
-//}
+
+template<class ListType>
+void FedeList<ListType>::moveCursor(int position) throw (exception) {
+    if (checkPosition(position)) {
+        prepareSearch(position);
+        bool isPositionAhead = cursorPosition<position;
+        while (cursorPosition != position) {
+            if (isPositionAhead) {
+                cursor = cursor->getNext();
+            } else {
+                cursor = cursor->getNext();
+            }
+        }
+    }
+}
+
+template<class ListType>
+bool FedeList<ListType>::checkPosition(int position) throw (exception) {
+    if ((position >= 0) && (position <= listSize)) return (true);
+    else throw (exception());
+}
+
+
 
 #endif	/* FEDELIST_CPP */
