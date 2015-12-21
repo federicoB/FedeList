@@ -122,8 +122,8 @@ protected:
     NodePointer cursor; //a pointer to a node that read the list up and down
     int cursorPosition; //the position of the cursor inside of the list, 0 based
     int listSize; //the lenght of the list starting from 1
-   // void prepareSearch(int posizione) throw (exception);
-   // NodePointer search(int posizione);
+    void prepareSearch(int posizione);
+    NodePointer getNodePointer(int posizione);
 };
 
 #include "FedeList.cpp"

@@ -8,9 +8,10 @@
 #ifndef FEDELIST_CPP
 #define	FEDELIST_CPP
 
+#include <cstdlib> //for abs() function
 #include "FedeList.hpp"
 
-template <class ListType> 
+template <class ListType>
 FedeList<ListType>::FedeList() {
     headCursor = NULL;
     cursor = headCursor;
@@ -19,29 +20,29 @@ FedeList<ListType>::FedeList() {
     listSize = 0;
 };
 
-template <class ListType> 
+template <class ListType>
 FedeList<ListType>::FedeList(ListType element) {
     FedeList();
     this->push_back(element);
     listSize++;
 }
 
-template <class ListType> 
+template <class ListType>
 FedeList<ListType>::FedeList(const FedeList& orig) {
     FedeList();
     int originSize = orig.getSize();
-    for (int i=0;i<originSize;i++) {
+    for (int i = 0; i < originSize; i++) {
         this->push_back(*orig.get(i));
         listSize++;
     }
 }
 
-template <class ListType> 
+template <class ListType>
 FedeList<ListType>::~FedeList() {
     cursor = headCursor;
     cursorPosition = 0; //TODO creating a class cursor that automatically do this.
     NodePointer cursorToDelete;
-    for (int i=0;i<listSize;i++) {
+    for (int i = 0; i < listSize; i++) {
         cursorToDelete = cursor;
         cursor = cursor->getNext();
         cursorPosition++;
@@ -50,44 +51,44 @@ FedeList<ListType>::~FedeList() {
     }
 }
 
-template <class ListType> 
+template <class ListType>
 FedeList<ListType>* FedeList<ListType>::push_front(ListType element) {
-        if (headCursor!=NULL) {
-            //TODO fix that mess(is it needed?)
-            NodePointer tmp = new Node<ListType>(&element,(Node<ListType>*)NULL,headCursor);
-            headCursor->setPrev(tmp);
-            headCursor = tmp;
-        } else {
-            headCursor = new Node<ListType>(&element);
-            tailCursor = headCursor;
-            cursor = headCursor;
-        }
-        listSize++;
+    if (headCursor != NULL) {
+        //TODO fix that mess(is it needed?)
+        NodePointer tmp = new Node<ListType>(&element, (Node<ListType>*)NULL, headCursor);
+        headCursor->setPrev(tmp);
+        headCursor = tmp;
+    } else {
+        headCursor = new Node<ListType>(&element);
+        tailCursor = headCursor;
+        cursor = headCursor;
+    }
+    listSize++;
     return (this);
 };
 
-template <class ListType> 
+template <class ListType>
 FedeList<ListType>* FedeList<ListType>::push_back(ListType element) {
-        if (tailCursor!=NULL) {
-            NodePointer tmp = new Node<ListType>(&element,tailCursor);
-            tailCursor->setNext(tmp);
-            tailCursor = tmp;
-        } else {
-            tailCursor = new Node<ListType>(&element);
-            tailCursor = headCursor;
-            cursor = headCursor;
-        }
-        listSize++;
+    if (tailCursor != NULL) {
+        NodePointer tmp = new Node<ListType>(&element, tailCursor);
+        tailCursor->setNext(tmp);
+        tailCursor = tmp;
+    } else {
+        tailCursor = new Node<ListType>(&element);
+        tailCursor = headCursor;
+        cursor = headCursor;
+    }
+    listSize++;
     return (this);
 };
 
 template <class ListType>
 ListType* FedeList<ListType>::pop_front() throw (exception) {
-    if (listSize>0) {
+    if (listSize > 0) {
         ListType* valueToReturn = new ListType;
-        valueToReturn* = headCursor->getValue();
+        *valueToReturn = headCursor->getValue();
         NodePointer toDelete = headCursor;
-        if (listSize>1) {
+        if (listSize > 1) {
             headCursor = headCursor->getNext();
         } else {
             headCursor = NULL;
@@ -102,11 +103,11 @@ ListType* FedeList<ListType>::pop_front() throw (exception) {
 
 template <class ListType>
 ListType* FedeList<ListType>::pop_back() throw (exception) {
-    if (listSize>0) {
+    if (listSize > 0) {
         ListType* valueToReturn = new ListType;
-        valueToReturn* = tailCursor->getValue();
+        *valueToReturn = tailCursor->getValue();
         NodePointer toDelete = tailCursor;
-        if (listSize>1) {
+        if (listSize > 1) {
             tailCursor = tailCursor->getPrev();
         } else {
             headCursor = NULL;
@@ -119,7 +120,7 @@ ListType* FedeList<ListType>::pop_back() throw (exception) {
     } else throw (exception());
 }
 
-template <class ListType> 
+template <class ListType>
 int FedeList<ListType>::getSize() const {
     return listSize;
 };
@@ -140,15 +141,23 @@ int FedeList<ListType>::getSize() const {
 //    delete elementToDelete;
 //};
 //
-//template <class TipoLista> 
-//void FedeList<TipoLista>::prepareSearch(int posizione) throw (exception) {
-//    if (posizione >= 0) {
-//        if (posizione < cursorPosition) {
-//            cursor = head; //sposto il cursore che punta alla testa
-//            cursorPosition = 0;
-//        }
-//    } else throw (exception());
-//}
+
+template <class ListType>
+void FedeList<ListType>::prepareSearch(int position) {
+#define cursorDistance abs(cursorPosition-position)
+#define headDistance position
+#define tailDistance (listSize-position)   
+    //if the distance between the position to get and the head/tail is less thant the distance
+    //between cursor and position we can make an optimization.
+    if ((headDistance < cursorDistance) && (tailDistance < cursorDistance))
+        if (headDistance <= tailDistance) {
+            cursor = headCursor;
+            cursorPosition = 0;
+        } else {
+            cursor = tailCursor;
+            cursorPosition = listSize;
+        }
+}
 //
 //template <class TipoLista>
 //typename FedeList<TipoLista>::NodePointer FedeList<TipoLista>::search(int posizione) {
