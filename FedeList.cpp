@@ -24,16 +24,20 @@ template <class ListType>
 FedeList<ListType>::FedeList(ListType element) {
     FedeList();
     this->push_back(element);
-    listSize++;
 }
 
 template <class ListType>
 FedeList<ListType>::FedeList(const FedeList& orig) {
     FedeList();
+    //i can't access orig nodes 'cause it would change orig and it's const for c++ standard.
+    //so i create a tmpCopy that point to same nodes but i can modify it.
+    FedeList<ListType> tmpCopy = FedeList<ListType>();
+    tmpCopy.headCursor = orig.headCursor;
+    tmpCopy.cursor = orig.headCursor;
+    tmpCopy.listSize = orig.listSize;
     int originSize = orig.getSize();
     for (int i = 0; i < originSize; i++) {
-        this->push_back(*orig.get(i));
-        listSize++;
+        this->push_back(*(tmpCopy.get(i)));
     }
 }
 
@@ -75,8 +79,8 @@ FedeList<ListType>* FedeList<ListType>::push_back(ListType element) {
         tailCursor = tmp;
     } else {
         tailCursor = new Node<ListType>(&element);
-        tailCursor = headCursor;
-        cursor = headCursor;
+        headCursor = tailCursor;
+        cursor = tailCursor;
     }
     listSize++;
     return (this);
@@ -85,7 +89,7 @@ FedeList<ListType>* FedeList<ListType>::push_back(ListType element) {
 template <class ListType>
 FedeList<ListType>* FedeList<ListType>::insert(ListType element, int position) throw(exception) {
     moveCursor(position);
-    Node* node = new Node(element,cursor->getPrev(),cursor);
+    Node<ListType>* node = new Node<ListType>(element,cursor->getPrev(),cursor);
     cursor->getPrev()->setNext(node);
     cursor->setPrev(node);
     cursorPosition++;
@@ -131,6 +135,12 @@ ListType* FedeList<ListType>::pop_back() throw (exception) {
 }
 
 template <class ListType>
+ListType FedeList<ListType>::get(int position) throw (exception) {
+    moveCursor(position);
+    return cursor->getValue();
+}
+
+template <class ListType>
 int FedeList<ListType>::getSize() const {
     return listSize;
 };
@@ -160,8 +170,10 @@ void FedeList<ListType>::moveCursor(int position) throw (exception) {
         while (cursorPosition != position) {
             if (isPositionAhead) {
                 cursor = cursor->getNext();
+                cursorPosition++;
             } else {
-                cursor = cursor->getNext();
+                cursor = cursor->getPrev();
+                cursorPosition--;
             }
         }
     }
