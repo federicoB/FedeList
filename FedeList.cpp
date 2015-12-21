@@ -57,7 +57,11 @@ FedeList<ListType>* FedeList<ListType>::push_front(ListType element) {
             NodePointer tmp = new Node<ListType>(&element,(Node<ListType>*)NULL,headCursor);
             headCursor->setPrev(tmp);
             headCursor = tmp;
-        } else headCursor = new Node<ListType>(&element);
+        } else {
+            headCursor = new Node<ListType>(&element);
+            tailCursor = headCursor;
+            cursor = headCursor;
+        }
         listSize++;
     return (this);
 };
@@ -68,10 +72,52 @@ FedeList<ListType>* FedeList<ListType>::push_back(ListType element) {
             NodePointer tmp = new Node<ListType>(&element,tailCursor);
             tailCursor->setNext(tmp);
             tailCursor = tmp;
-        } else tailCursor = new Node<ListType>(&element);
+        } else {
+            tailCursor = new Node<ListType>(&element);
+            tailCursor = headCursor;
+            cursor = headCursor;
+        }
         listSize++;
     return (this);
 };
+
+template <class ListType>
+ListType* FedeList<ListType>::pop_front() throw (exception) {
+    if (listSize>0) {
+        ListType* valueToReturn = new ListType;
+        valueToReturn* = headCursor->getValue();
+        NodePointer toDelete = headCursor;
+        if (listSize>1) {
+            headCursor = headCursor->getNext();
+        } else {
+            headCursor = NULL;
+            tailCursor = NULL;
+            cursor = NULL;
+        }
+        delete toDelete;
+        listSize--;
+        return valueToReturn;
+    } else throw (exception());
+}
+
+template <class ListType>
+ListType* FedeList<ListType>::pop_back() throw (exception) {
+    if (listSize>0) {
+        ListType* valueToReturn = new ListType;
+        valueToReturn* = tailCursor->getValue();
+        NodePointer toDelete = tailCursor;
+        if (listSize>1) {
+            tailCursor = tailCursor->getPrev();
+        } else {
+            headCursor = NULL;
+            tailCursor = NULL;
+            cursor = NULL;
+        }
+        delete toDelete;
+        listSize--;
+        return valueToReturn;
+    } else throw (exception());
+}
 
 template <class ListType> 
 int FedeList<ListType>::getSize() const {
