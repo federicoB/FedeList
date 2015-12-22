@@ -72,14 +72,14 @@ class FedeList {
      * throw exception if the list is empty.
      * @return ListType*: the element in the head of the list.
      */
-    ListType* pop_front() throw (exception);
+    ListType pop_front() throw (exception);
     
     /**
      * Remove an element in the tail of the list and return it.
      * throw exception if the list is empty.
      * @return ListType*: the element in the tail of the list.
      */
-    ListType* pop_back() throw (exception);
+    ListType pop_back() throw (exception);
     
     /**
      * Get an element from the list in the given position.
@@ -94,7 +94,7 @@ class FedeList {
      * @param element ListType: the element for the comparison.
      * @return ListType*: the element from the list that is equal to the element given null if not found.
      */
-    ListType* getByElement(ListType element);
+    ListType getByElement(ListType element);
     
     /**
      * Remove from the list the element in the given position.
