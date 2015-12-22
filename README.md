@@ -11,7 +11,8 @@ Create a list (of pointer to pineapples)
 Add element to the list
 ```
     pineApples.push_back(new PineApple());
-```Retrive elements from the list
+```
+Retrive elements from the list
 ```
   pineApples.get(5)->gnam();
 ```
