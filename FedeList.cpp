@@ -181,6 +181,21 @@ FedeList<ListType>* FedeList<ListType>::remove(int position) throw (exception) {
     return (this);
 }
 
+template<class ListType>
+FedeList<ListType>* FedeList<ListType>::removeByElement(ListType element) {
+    int i = 0;
+    bool found = false;
+    while ((!found) && (i<listSize)) {
+        moveCursor(i);
+        if (cursor->getValue()==element) {
+            found = true;
+        } else i++;
+    }
+    remove(i);
+    return (this);
+}
+
+
 template <class ListType>
 int FedeList<ListType>::getSize() const {
     return listSize;
