@@ -88,11 +88,22 @@ FedeList<ListType>* FedeList<ListType>::push_back(ListType element) {
 
 template <class ListType>
 FedeList<ListType>* FedeList<ListType>::insert(ListType element, int position) throw(exception) {
+    if ((listSize>0) && (position<listSize)) {
     moveCursor(position);
-    Node<ListType>* node = new Node<ListType>(element,cursor->getPrev(),cursor);
-    cursor->getPrev()->setNext(node);
+    Node<ListType>* node = new Node<ListType>(&element,cursor->getPrev(),cursor);
+    if (cursor->getPrev()!=NULL) {
+        cursor->getPrev()->setNext(node);
+    } else {
+        headCursor = node; //inserting in position 0, we need to update headcursor
+    }
     cursor->setPrev(node);
     cursorPosition++;
+    listSize++;
+    } else {
+        if (checkPosition(position)) { //because it can be >listSize
+            push_back(element);
+        }
+    }   
     return (this);
 };
 
@@ -104,10 +115,12 @@ ListType* FedeList<ListType>::pop_front() throw (exception) {
         NodePointer toDelete = headCursor;
         if (listSize > 1) {
             headCursor = headCursor->getNext();
+            tailCursor->setPrev((Node<ListType>*)NULL);
         } else {
             headCursor = NULL;
             tailCursor = NULL;
             cursor = NULL;
+            cursorPosition = 0;
         }
         delete toDelete;
         listSize--;
@@ -123,10 +136,12 @@ ListType* FedeList<ListType>::pop_back() throw (exception) {
         NodePointer toDelete = tailCursor;
         if (listSize > 1) {
             tailCursor = tailCursor->getPrev();
+            tailCursor->setNext((Node<ListType>*)NULL);
         } else {
             headCursor = NULL;
             tailCursor = NULL;
             cursor = NULL;
+            cursorPosition = 0;
         }
         delete toDelete;
         listSize--;
@@ -181,7 +196,7 @@ void FedeList<ListType>::moveCursor(int position) throw (exception) {
 
 template<class ListType>
 bool FedeList<ListType>::checkPosition(int position) throw (exception) {
-    if ((position >= 0) && (position <= listSize)) return (true);
+    if ((position >= 0) && (position <= (listSize-1))) return (true);
     else throw (exception());
 }
 
