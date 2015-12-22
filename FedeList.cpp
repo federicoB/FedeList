@@ -9,6 +9,7 @@
 #define	FEDELIST_CPP
 
 #include <cstdlib> //for abs() function
+#include <climits>
 #include "FedeList.hpp"
 
 template <class ListType>
@@ -16,7 +17,8 @@ FedeList<ListType>::FedeList() {
     headCursor = NULL;
     cursor = headCursor;
     tailCursor = headCursor;
-    cursorPosition = 0;
+    //in this way at the first push the cursor will point to the head/tail
+    cursorPosition = INT_MAX; 
     listSize = 0;
 };
 
@@ -43,13 +45,11 @@ FedeList<ListType>::FedeList(const FedeList& orig) {
 
 template <class ListType>
 FedeList<ListType>::~FedeList() {
-    cursor = headCursor;
-    cursorPosition = 0; //TODO creating a class cursor that automatically do this.
+    moveCursor(0);
     NodePointer cursorToDelete;
     for (int i = 0; i < listSize; i++) {
         cursorToDelete = cursor;
-        cursor = cursor->getNext();
-        cursorPosition++;
+        moveCursor(i+1);
         delete cursorToDelete;
         listSize--;
     }
@@ -65,9 +65,9 @@ FedeList<ListType>* FedeList<ListType>::push_front(ListType element) {
     } else {
         headCursor = new Node<ListType>(&element);
         tailCursor = headCursor;
-        cursor = headCursor;
     }
     listSize++;
+    moveCursor(0);
     return (this);
 };
 
@@ -80,30 +80,30 @@ FedeList<ListType>* FedeList<ListType>::push_back(ListType element) {
     } else {
         tailCursor = new Node<ListType>(&element);
         headCursor = tailCursor;
-        cursor = tailCursor;
     }
     listSize++;
+    moveCursor(0);
     return (this);
 };
 
 template <class ListType>
-FedeList<ListType>* FedeList<ListType>::insert(ListType element, int position) throw(exception) {
-    if ((listSize>0) && (position<listSize)) {
-    moveCursor(position);
-    Node<ListType>* node = new Node<ListType>(&element,cursor->getPrev(),cursor);
-    if (cursor->getPrev()!=NULL) {
-        cursor->getPrev()->setNext(node);
-    } else {
-        headCursor = node; //inserting in position 0, we need to update headcursor
-    }
-    cursor->setPrev(node);
-    cursorPosition++;
-    listSize++;
+FedeList<ListType>* FedeList<ListType>::insert(ListType element, int position) throw (exception) {
+    if ((listSize > 0) && (position < listSize)) {
+        moveCursor(position);
+        Node<ListType>* node = new Node<ListType>(&element, cursor->getPrev(), cursor);
+        if (cursor->getPrev() != NULL) {
+            cursor->getPrev()->setNext(node);
+        } else {
+            headCursor = node; //inserting in position 0, we need to update headcursor
+        }
+        cursor->setPrev(node);
+        cursorPosition++;
+        listSize++;
     } else {
         if (checkPosition(position)) { //because it can be >listSize
             push_back(element);
         }
-    }   
+    }
     return (this);
 };
 
@@ -115,14 +115,14 @@ ListType* FedeList<ListType>::pop_front() throw (exception) {
         NodePointer toDelete = headCursor;
         if (listSize > 1) {
             headCursor = headCursor->getNext();
-            tailCursor->setPrev((Node<ListType>*)NULL);
+            headCursor->setPrev((Node<ListType>*)NULL);
         } else {
             headCursor = NULL;
             tailCursor = NULL;
-            cursor = NULL;
-            cursorPosition = 0;
         }
         delete toDelete;
+        cursor = headCursor; //in this way cursor wil never point to a inexisting node
+        cursorPosition = 0;
         listSize--;
         return valueToReturn;
     } else throw (exception());
@@ -144,6 +144,8 @@ ListType* FedeList<ListType>::pop_back() throw (exception) {
             cursorPosition = 0;
         }
         delete toDelete;
+        cursor = tailCursor; //in this way cursor will never point to a inexisting node
+        cursorPosition = listSize-1;
         listSize--;
         return valueToReturn;
     } else throw (exception());
@@ -153,6 +155,30 @@ template <class ListType>
 ListType FedeList<ListType>::get(int position) throw (exception) {
     moveCursor(position);
     return cursor->getValue();
+}
+
+template <class ListType>
+FedeList<ListType>* FedeList<ListType>::remove(int position) throw (exception) {
+    const int lastElement = listSize - 1;
+    //needed to use nested if instead of switch because switch can't be used with values that changes at run-time
+    //like listSize
+    if (position == 0) {
+        pop_front();
+    } else if (position == lastElement) {
+        pop_back();
+    } else {
+        moveCursor(position);
+        NodePointer toDelete = cursor;
+        //doing bypass of node to delete
+        NodePointer previus = cursor->getPrev();
+        NodePointer next = cursor->getNext();
+        previus->setNext(next);
+        next->setPrev(previus);
+        cursor = next; //can't use moveCursor because cursorPosition must remain the same.
+        delete toDelete;
+        listSize--;
+    }
+    return (this);
 }
 
 template <class ListType>
@@ -196,7 +222,7 @@ void FedeList<ListType>::moveCursor(int position) throw (exception) {
 
 template<class ListType>
 bool FedeList<ListType>::checkPosition(int position) throw (exception) {
-    if ((position >= 0) && (position <= (listSize-1))) return (true);
+    if ((position >= 0) && (position <= (listSize - 1))) return (true);
     else throw (exception());
 }
 
