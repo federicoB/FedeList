@@ -49,7 +49,7 @@ FedeList<ListType>::~FedeList() {
     NodePointer cursorToDelete;
     for (int i = 0; i < listSize; i++) {
         cursorToDelete = cursor;
-        moveCursor(i+1);
+        moveCursor(i);
         delete cursorToDelete;
         listSize--;
     }
@@ -58,7 +58,6 @@ FedeList<ListType>::~FedeList() {
 template <class ListType>
 FedeList<ListType>* FedeList<ListType>::push_front(ListType element) {
     if (headCursor != NULL) {
-        //TODO fix that mess(is it needed?)
         NodePointer tmp = new Node<ListType>(&element, (Node<ListType>*)NULL, headCursor);
         headCursor->setPrev(tmp);
         headCursor = tmp;
