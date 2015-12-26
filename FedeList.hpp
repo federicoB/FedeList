@@ -1,6 +1,7 @@
 /* 
  * File:   FedeList.h
  * Author: Federico Bertani
+ * Author: Riccardo Maffei
  *
  * Created on 16 novembre 2015, 19.01
  */
@@ -8,7 +9,7 @@
 #ifndef FEDELIST_H
 #define	FEDELIST_H
 
-#include <exception>
+#include <stdexcept>
 #include "Node.hpp"
 
 using namespace std;
@@ -27,16 +28,10 @@ class FedeList {
     FedeList();
     
     /**
-     * Create a FedeList with only a node containg the given element.
-     * @param element ListType: the element to put as first node
+     * Constructs a FedeList with only a node containg the given element.
+     * @param element ListType: the element to put as first node.
      */
     FedeList(ListType element);
-    
-    /**
-     * Clone an existing Fedelist
-     * @param orig Fedelist&: the Fedelist to clone
-     */
-    FedeList(const FedeList& orig);
     
     /**
      * Destroy a Fedelist.
@@ -58,95 +53,95 @@ class FedeList {
     FedeList* push_back(ListType element);
     
     /**
-     * Insert an element in a given position.
-     * The element that previously was in that position shift ahead.
-     * Throw exception if the position is not valid.
+     * Insert an element in the given position.
+     * The element is inserted <b>before</b> the element that may be in the position.
      * @param element ListType: the element to insert.
      * @param position int: the position in the list where insert the element.
      * @return FedeList*: a pointer to the list object for method chaining.
+     * @throws out_of_range: throw a out of range exception if the position is invalid.
      */
-    FedeList* insert(ListType element,int position) throw (exception);
+    FedeList* insert(ListType element,int position);
     
     /**
-     * Remove an element in the head of the list and return it.
+     * Remove an element in the head of the list and returns it.
      * throw exception if the list is empty.
      * @return ListType*: the element in the head of the list.
+     * @throws out_of_range: throw a out of range exception if the list is empty.
      */
-    ListType pop_front() throw (exception);
+    ListType pop_front();
     
     /**
      * Remove an element in the tail of the list and return it.
-     * throw exception if the list is empty.
      * @return ListType*: the element in the tail of the list.
+     * @throws out_of_range: throw a out of range exception if the list is empty.
      */
-    ListType pop_back() throw (exception);
+    ListType pop_back();
     
     /**
      * Get an element from the list in the given position.
-     * throw exception if the position is not valid.
      * @param position: the position in the list of the element to get.
      * @return ListType*: the element from the list in the given position.
+     * @throws out_of_range: throw a out of range exception if the position is invalid.
      */
-    ListType get(int position) throw (exception) ;
-    
-    /**
-     * Get an element from the list that is equal to the element given.
-     * @param element ListType: the element for the comparison.
-     * @return ListType*: the element from the list that is equal to the element given null if not found.
-     */
-    ListType getByElement(ListType element);
+    ListType get(int position);
     
     /**
      * Remove from the list the element in the given position.
-     * throw exception if the position is not valid.
      * @param position int: the position in the list of the element to remove.
      * @return FedeList*: a pointer to the list object for method chaining.
+     * @throws out_of_range: throw a out of range exception if the position is invalid.
      */
-    FedeList* remove(int position) throw (exception);  
+    FedeList* remove(int position);  
     
      /**
      * Remove from the list the element that is equal to the element given.
+     * NOTE: list type comparison is made through == operator.
      * @param element ListType: the element used for the comparison.
      * @return FedeList*: a pointer to the list object for method chaining.
      */
     FedeList* removeByElement(ListType element); 
     
     /**
-     * Return the size of the list from 0 to n.
+     * Return the size of the list.
      * @return int: the size of the list.
      */
-    int getSize() const;
+    int getSize();
     
-    typedef Node<ListType>* NodePointer; //a type that represent a pointer to a Node
-    // i had to put typedef hear otherwise getHeadCursor would't know the typedef
+    //define Node<ListType>* as NodePointer
+    typedef Node<ListType>* NodePointer; 
+    
 protected:
-    NodePointer headCursor; //a pointer that always point to the head of the list
-    NodePointer tailCursor; //a pointer that always point to the tail of the list
-    NodePointer cursor; //a pointer to a node that read the list up and down
-    int cursorPosition; //the position of the cursor inside of the list, 0 based
-    int listSize; //the lenght of the list starting from 1
+    //a pointer that always point to the head of the list
+    NodePointer headCursor;
+    //a pointer that always point to the tail of the list
+    NodePointer tailCursor;
+    //a sliding cursor
+    NodePointer cursor;
+    //the position of the cursor inside of the list, 0 based (-1 in case of empty list)
+    int cursorPosition;
+    //the lenght of the list
+    int listSize;
     
     /**
-     * This set the cursor nearest possible to the position to search.
-     * It's called by getNodePointer
-     * @param posizione int: the position of the element to get.
+     * This set the cursor as near as possible to the searched position.
+     * @param position int: the position of the searched element.
      */
     void prepareSearch(int position);
     
     /**
-     * Get a node in the list given a position.
-     * throw an exception if the position is not valid
+     * Move the cursor to the node in the given position.
      * @param position int: the position of the node to get.
-     * @return NodePointer: a pointer to the node to get
+     * @return NodePointer: a pointer to the node to get.
+     * @throws out_of_range: throw a out of range exception if the position is invalid.
      */
-    void moveCursor(int position) throw(exception);
+    void moveCursor(int position);
     
     /**
-     * Check if the position given is valid throw an exception otherwise.
+     * Check if the position given is valid.
      * @param position int: the position to check.
-     * @return true is the position is valid
+     * @return true is the position is valid, false otherwise.
      */
-    bool checkPosition(int position) throw(exception);
+    bool isValidPosition(int position);
 };
 
 #include "FedeList.cpp"
