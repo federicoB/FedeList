@@ -14,20 +14,31 @@
 
 template <class ListType>
 FedeList<ListType>::FedeList(){
-    //set all cursors to NULL
-    headCursor = tailCursor = cursor = NULL;
-    //in this way at the first push the cursor will point to the head/tail
-    cursorPosition = -1;
-    //set the size of the list as 0
-    listSize = 0;
+    //call the init
+    this -> init();
 };
 
 template <class ListType>
 FedeList<ListType>::FedeList(ListType element){
-    //call the default constructor
-    FedeList();
+    //call the init
+    this -> init();
     //push the element
     this -> push_back(element);
+}
+
+template <class ListType>
+FedeList<ListType>::FedeList(const FedeList& orig) {
+    this -> init();
+    //i can't access orig nodes 'cause it would change orig and it's const for c++ standard.
+    //so i create a tmpCopy that point to same nodes but i can modify it.
+    FedeList<ListType> tmpCopy = FedeList<ListType>();
+    tmpCopy.headCursor = orig.headCursor;
+    tmpCopy.cursor = orig.headCursor;
+    tmpCopy.listSize = orig.listSize;
+    int originSize = orig.getSize();
+    for (int i = 0; i < originSize; i++) {
+        this->push_back(tmpCopy.get(i));
+    }
 }
 
 template <class ListType>
@@ -45,6 +56,17 @@ FedeList<ListType>::~FedeList(){
     }
     
 }
+
+template <class ListType>
+void FedeList<ListType>::init(){
+    //set all cursors to NULL
+    headCursor = tailCursor = cursor = NULL;
+    //in this way at the first push the cursor will point to the head/tail
+    cursorPosition = -1;
+    //set the size of the list as 0
+    listSize = 0;
+}
+
 
 template <class ListType>
 FedeList<ListType>* FedeList<ListType>::push_front(ListType element){
@@ -332,7 +354,7 @@ FedeList<ListType>* FedeList<ListType>::removeByElement(ListType element){
 
 
 template <class ListType>
-int FedeList<ListType>::getSize(){
+int FedeList<ListType>::getSize() const{
     //return the list size
     return listSize;
 };

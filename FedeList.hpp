@@ -34,9 +34,20 @@ class FedeList {
     FedeList(ListType element);
     
     /**
+     * Create a FedeList copying it from an another FedeList.
+     * @param orig FedeList&lt;ListType*&gt;*: the fedelist to copy.
+     */
+    FedeList(const FedeList<ListType>& orig);
+    
+    /**
      * Destroy a Fedelist.
      */
-    virtual ~FedeList(); 
+    virtual ~FedeList();
+    
+    /**
+     * Initialize FedeList internal state.
+     */
+    void init();
     
     /**
      * Add an element in head of the list.
@@ -105,7 +116,7 @@ class FedeList {
      * Return the size of the list.
      * @return int: the size of the list.
      */
-    int getSize();
+    int getSize() const;
     
     //define Node<ListType>* as NodePointer
     typedef Node<ListType>* NodePointer; 
