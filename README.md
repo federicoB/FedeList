@@ -23,7 +23,11 @@ Remove elements from the list
 
 ## Why are you doing this
 I began to develop Fedelist at the univesity (I study Computer Science) for personal interest and for speed up exercises.
-Now it's useful fon an another project that i'm working on so i continued the development.
+It have been useful fon an another project that i've worked on so i continued the development.
+
+## How can i use FedeList?
+Just download the files and include FedeList.hpp in your program.
+It's a template class so you don't need to compile and link FedeList.cpp because it's included into FedeList.hpp.
 
 #License
 Fedelist is distributed with GPL license.
