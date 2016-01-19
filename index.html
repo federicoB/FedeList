@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Fedelist by federicoB</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Fedelist</h1>
+        <h2>A simple c++ multipurpouse list.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/federicoB/FedeList/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/federicoB/FedeList/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/federicoB/FedeList" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h2>
+<a id="what-is-fedelist" class="anchor" href="#what-is-fedelist" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is FedeList?</h2>
+
+<p>It's a simple c++ template class that implements a list.
+This means that you can use it with every type you need.</p>
+
+<h2>
+<a id="what-can-i-do-with-fedelist" class="anchor" href="#what-can-i-do-with-fedelist" aria-hidden="true"><span class="octicon octicon-link"></span></a>What can i do with FedeList?</h2>
+
+<p>Create a list (of pointer to pineapples)</p>
+
+<pre><code>    FedeList&lt;PineApple*&gt; pineApples;
+</code></pre>
+
+<p>Add element to the list</p>
+
+<pre><code>    pineApples.push_back(new PineApple());
+</code></pre>
+
+<p>Retrive elements from the list</p>
+
+<pre><code>  pineApples.get(5)-&gt;gnam();
+</code></pre>
+
+<p>Remove elements from the list</p>
+
+<pre><code>  pineApples.remove(3);
+</code></pre>
+
+<h2>
+<a id="why-are-you-doing-this" class="anchor" href="#why-are-you-doing-this" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why are you doing this</h2>
+
+<p>I began to develop Fedelist at the univesity (I study Computer Science) for personal interest and for speed up exercises.
+It have been useful fon an another project that i've worked on so i continued the development.</p>
+
+<h2>
+<a id="how-can-i-use-fedelist" class="anchor" href="#how-can-i-use-fedelist" aria-hidden="true"><span class="octicon octicon-link"></span></a>How can i use FedeList?</h2>
+
+<p>Just download the files and include FedeList.hpp in your program.
+It's a template class so you don't need to compile and link FedeList.cpp because it's included into FedeList.hpp.</p>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>Fedelist is distributed with GPL license.</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
