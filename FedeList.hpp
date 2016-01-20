@@ -11,6 +11,7 @@
 
 #include <stdexcept>
 #include "Node.hpp"
+#include "FedeListIterator.h"
 
 using namespace std;
 
@@ -118,10 +119,14 @@ class FedeList {
      */
     int getSize() const;
     
+    //TODO remove this 
     //define Node<ListType>* as NodePointer
     typedef Node<ListType>* NodePointer; 
     
+    //TODO override operator []
+    
 protected:
+    //TODO substiture NodePointer with FedeListIterator
     //a pointer that always point to the head of the list
     NodePointer headCursor;
     //a pointer that always point to the tail of the list
