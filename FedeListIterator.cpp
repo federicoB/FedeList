@@ -37,7 +37,7 @@ FedeListIterator<ListType>& FedeListIterator<ListType>::operator=(const FedeList
             return *this; // Yes, so skip assignment, and just return *this.
         // Deallocate, allocate new space, copy values...
         //copy pointers
-        this->pointer = right->pointer;
+        this->pointer = right.pointer;
         return *this;
 }
 

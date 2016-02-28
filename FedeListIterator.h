@@ -9,6 +9,7 @@
 #define	FEDELISTITERATOR_H
 
 #include <iterator>
+#include "Node.hpp"
 
 /**
  * An iterator through a Fedelist. <br>
@@ -38,6 +39,8 @@ public:
      * Destroy and interator.
      */
     virtual ~FedeListIterator();
+
+    //TODO override operator  [] , < , > ,...
     
     /**
      * Override assignemnt operator.
@@ -45,8 +48,20 @@ public:
      * @return FedeListIterator&lt;ListType*&gt;& : the object assigned
      */
     FedeListIterator<ListType>& operator=(const FedeListIterator<ListType>& right);
-    
-    //TODO override operator ++,--, [] , == , < , > ...
+
+    bool operator==(const FedeListIterator<ListType>& left, const FedeListIterator<ListType>& right);
+
+    bool operator!=(const FedeListIterator<ListType>& left, const FedeListIterator<ListType>& right);
+
+    FedeListIterator<ListType>& operator*();
+
+    FedeListIterator<ListType>& operator++();
+
+    FedeListIterator<ListType>& operator++( int );
+
+    FedeListIterator<ListType>& operator--();
+
+    FedeListIterator<ListType>& operator--( int );
     
     void setNode(Node<ListType>& node,int position);
     
