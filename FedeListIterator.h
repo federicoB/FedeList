@@ -13,7 +13,7 @@
 
 /**
  * An iterator through a Fedelist. <br>
- * It's point to a FedeList element and has the ability to iterate through them.
+ * It's point to a FedeList node element and has the ability to iterate through them.
  */
 template <class ListType>
 class FedeListIterator {
@@ -34,9 +34,9 @@ public:
      * @param orig FedeListIterator&: the iterator to clone.
      */
     FedeListIterator(const FedeListIterator& orig);
-    
+
     /**
-     * Destroy and interator.
+     * Destroy an interator.
      */
     virtual ~FedeListIterator();
 
@@ -49,11 +49,25 @@ public:
      */
     FedeListIterator<ListType>& operator=(const FedeListIterator<ListType>& right);
 
-    bool operator==(const FedeListIterator<ListType>& left, const FedeListIterator<ListType>& right);
-
-    bool operator!=(const FedeListIterator<ListType>& left, const FedeListIterator<ListType>& right);
+    FedeListIterator<ListType> &operator[](const int position);
 
     FedeListIterator<ListType>& operator*();
+
+    bool operator==(const FedeListIterator<ListType> &right);
+
+    bool operator!=(const FedeListIterator<ListType> &right);
+
+    bool operator<(const FedeListIterator<ListType> &right);
+
+    bool operator<=(const FedeListIterator<ListType> &right);
+
+    bool operator>(const FedeListIterator<ListType> &right);
+
+    bool operator>=(const FedeListIterator<ListType> &right);
+
+    FedeListIterator<ListType> operator+(const FedeListIterator<ListType> &right);
+
+    FedeListIterator<ListType> operator-(const FedeListIterator<ListType> &right);
 
     FedeListIterator<ListType>& operator++();
 
