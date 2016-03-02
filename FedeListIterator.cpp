@@ -45,6 +45,7 @@ FedeListIterator<ListType> &FedeListIterator<ListType>::operator[](const int pos
             *this--;
         }
     }
+    return *this;
 }
 
 template <class ListType>
@@ -84,12 +85,18 @@ bool FedeListIterator<ListType>::operator>=(const FedeListIterator<ListType> &ri
 
 template <class ListType>
 FedeListIterator<ListType> FedeListIterator<ListType>::operator+(const FedeListIterator<ListType> &right) {
-    return FedeListIterator();
+    //TODO better implementation cloning the nearest of the two
+    FedeListIterator<ListType> newIterator = FedeListIterator<ListType>();
+    newIterator[this->position+right.position];
+    return newIterator;
 }
 
 template <class ListType>
 FedeListIterator<ListType> FedeListIterator<ListType>::operator-(const FedeListIterator<ListType> &right) {
-    return FedeListIterator();
+    //TODO better implementation cloning the nearest of the two
+    FedeListIterator<ListType> newIterator = FedeListIterator<ListType>();
+    newIterator[this->position-right.position];
+    return newIterator;
 }
 
 template <class ListType>
