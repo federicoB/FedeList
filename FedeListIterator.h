@@ -60,7 +60,7 @@ public:
      * Get the node pointed by the iterator.
      * @return FedeListIterator&lt;ListType*&gt;*: the node pointed by the iterator.
      */
-    Node<ListType> &operator*();
+    Node<ListType> *operator*();
 
     /**
     * Access the node pointed by the iterator.
@@ -148,7 +148,12 @@ public:
      */
     FedeListIterator<ListType> &operator--(int);
 
-    void setNode(Node<ListType> &node, int position);
+    void setNode(Node<ListType> *node, int position);
+
+    int getPosition() const;
+
+    void setPosition(int position);
+
 
 private:
     int position;

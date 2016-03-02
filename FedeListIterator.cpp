@@ -57,9 +57,9 @@ FedeListIterator<ListType> &FedeListIterator<ListType>::operator[](const int pos
 }
 
 template <class ListType>
-Node<ListType> &FedeListIterator<ListType>::operator*() {
+Node<ListType> *FedeListIterator<ListType>::operator*() {
     //return the node pointed by the iterator
-    return *this->pointer;
+    return this->pointer;
 }
 
 template <class ListType>
@@ -173,11 +173,20 @@ FedeListIterator<ListType>& FedeListIterator<ListType>::operator=(const FedeList
 }
 
 template<class ListType>
-void FedeListIterator<ListType>::setNode(Node<ListType> &node, int position) {
+void FedeListIterator<ListType>::setNode(Node<ListType> *node, int position) {
     //assign the given node
-    this->pointer = &node;
+    this->pointer = node;
     //assign the given position
     this->position = position;
 }
 
+template<class ListType>
+int FedeListIterator<ListType>::getPosition() const {
+    return position;
+}
+
+template<class ListType>
+void FedeListIterator<ListType>::setPosition(int position) {
+    this->position = position;
+}
 

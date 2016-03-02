@@ -128,11 +128,11 @@ class FedeList {
 protected:
     //TODO substiture NodePointer with FedeListIterator
     //a pointer that always point to the head of the list
-    NodePointer headCursor;
+    FedeListIterator<ListType> headCursor;
     //a pointer that always point to the tail of the list
-    NodePointer tailCursor;
+    FedeListIterator<ListType> tailCursor;
     //a sliding cursor
-    NodePointer cursor;
+    FedeListIterator<ListType> cursor;
     //the position of the cursor inside of the list, 0 based (-1 in case of empty list)
     int cursorPosition;
     //the lenght of the list
