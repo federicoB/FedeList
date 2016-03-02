@@ -9,19 +9,25 @@
 
 template <class ListType>
 FedeListIterator<ListType>::FedeListIterator() {
+    //set the iterator to point nothing
     this->pointer = NULL;
+    //-1 stands for a inexinsting position
     this->position = -1;
 }
 
 template <class ListType>
 FedeListIterator<ListType>::FedeListIterator(Node<ListType>* node,int position) {
+    //assign the given node
     this->pointer = node;
+    //assign the given position
     this->position = position;
 }
 
 template <class ListType>
 FedeListIterator<ListType>::FedeListIterator(const FedeListIterator& orig) {
+    //clone the pointer
     this->pointer = orig.pointer;
+    //clone the position
     this->position = orig.position;
 }
 
@@ -32,16 +38,18 @@ FedeListIterator<ListType>::~FedeListIterator() {
 
 template <class ListType>
 FedeListIterator<ListType> &FedeListIterator<ListType>::operator[](const int position) {
-    //check if the position is ahead to the cursor
+    //check if the position is ahead to the iterator
     bool isPositionAhead = this->position < position;
-    //while the cursor position is not equal than the position
+    //while the iterator position is not equal than the position
     while (this->position != position) {
         //if the position is ahead
         if (isPositionAhead) {
+            //advance the iterator
             *this++;
         }
-            //else (position is before the cursor)
+            //else (position is before the iterator)
         else {
+            //decrease the iterator
             *this--;
         }
     }
@@ -50,11 +58,13 @@ FedeListIterator<ListType> &FedeListIterator<ListType>::operator[](const int pos
 
 template <class ListType>
 Node<ListType> &FedeListIterator<ListType>::operator*() {
+    //return the node pointed by the iterator
     return *this->pointer;
 }
 
 template <class ListType>
 bool FedeListIterator<ListType>::operator==(const FedeListIterator<ListType> &right) {
+    //compare the two position, if the two iterators point to the same position they are the same object
     return (this->position==right.position);
 }
 
@@ -86,7 +96,9 @@ bool FedeListIterator<ListType>::operator>=(const FedeListIterator<ListType> &ri
 template <class ListType>
 FedeListIterator<ListType> FedeListIterator<ListType>::operator+(const FedeListIterator<ListType> &right) {
     //TODO better implementation cloning the nearest of the two
+    //create e new iterator
     FedeListIterator<ListType> newIterator = FedeListIterator<ListType>();
+    //move the new iterator
     newIterator[this->position+right.position];
     return newIterator;
 }
@@ -94,45 +106,51 @@ FedeListIterator<ListType> FedeListIterator<ListType>::operator+(const FedeListI
 template <class ListType>
 FedeListIterator<ListType> FedeListIterator<ListType>::operator-(const FedeListIterator<ListType> &right) {
     //TODO better implementation cloning the nearest of the two
+    //create e new iterator
     FedeListIterator<ListType> newIterator = FedeListIterator<ListType>();
+    //move the new iterator
     newIterator[this->position-right.position];
     return newIterator;
 }
 
 template <class ListType>
 FedeListIterator<ListType> &FedeListIterator<ListType>::operator++() {
+    //save the current iterator state in a variabile
     FedeListIterator<ListType>& oldOne = *this;
-    //move the cursor ahead
+    //move the iterator ahead
     this->pointer = this->pointer -> getNext();
-    //increase the cursor position
+    //increase the iterator position
     this->position++;
+    //return the old iterator
     return oldOne;
 }
 
 template <class ListType>
 FedeListIterator<ListType> &FedeListIterator<ListType>::operator++(int i) {
-    //move the cursor ahead
+    //move the iterator ahead
     this->pointer = this->pointer -> getNext();
-    //increase the cursor position
+    //increase the iterator position
     this->position++;
     return *this;
 }
 
 template <class ListType>
 FedeListIterator<ListType> &FedeListIterator<ListType>::operator--() {
+    //save the current iterator state in a variabile
     FedeListIterator<ListType>& oldOne = *this;
-    //move the cursor back
+    //move the iterator back
     this->pointer = this->pointer -> getPrev();
-    //decrease the cursor position
+    //decrease the iterator position
     this->position--;
+    //return the old iterator
     return oldOne;
 }
 
 template <class ListType>
 FedeListIterator<ListType> &FedeListIterator<ListType>::operator--(int i) {
-    //move the cursor back
+    //move the iterator back
     this->pointer = this->pointer -> getPrev();
-    //decrease the cursor position
+    //decrease the iterator position
     this->position--;
     return *this;
 }
