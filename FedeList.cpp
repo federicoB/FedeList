@@ -178,22 +178,22 @@ ListType FedeList<ListType>::pop_front(){
         //save the result value
         result = headCursor -> getValue();
         //save the node to delete
-        NodePointer toDelete = headCursor;
+        NodePointer toDelete = *headCursor;
         //if there is more than 1 element
         if (listSize > 1){
             //if the cursor is pointing to the head
             if(cursor == headCursor){
                 //move the cursor to the future head
-                cursor = cursor -> getNext();
+                cursor.setNode(cursor->getNext(), cursor.getPosition());
                 //do not change cursor position
             }
             //else (the cursor is ahead)
             else{
                 //decrease the cursor position
-                cursorPosition--;
+                cursor.setPosition(cursor.getPosition() - 1);
             }
             //set head cursor as the next of the current head cursor
-            headCursor = headCursor -> getNext();
+            headCursor.setNode(headCursor->getNext(), headCursor.getPosition());
             //set the previous of the head cursor as NULL
             headCursor -> setPrev(NULL);
         } 
@@ -227,19 +227,17 @@ ListType FedeList<ListType>::pop_back(){
         //if the cursor is pointing to the tail
         if(cursor == tailCursor){
             //move the cursor to the future tail
-            cursor = cursor -> getPrev();
-            //decrease the cursor position
-            cursorPosition--;
+            cursor--;
         }
         //else (the cursor is behind): do nothing
         //save the result value
         result = tailCursor -> getValue();
         //save the node to delete
-        NodePointer toDelete = tailCursor;
+        NodePointer toDelete = *tailCursor;
         //if there is more than 1 element
         if (listSize > 1){
             //set tail cursor as the previous of the current tail cursor
-            tailCursor = tailCursor -> getPrev();
+            tailCursor.setNode(tailCursor->getPrev(), tailCursor.getPosition());
             //set the next of the tail cursor as NULL
             tailCursor -> setNext(NULL);
         }
