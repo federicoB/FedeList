@@ -63,6 +63,12 @@ Node<ListType> &FedeListIterator<ListType>::operator*() {
 }
 
 template <class ListType>
+Node<ListType>* FedeListIterator<ListType>::operator->() {
+    //return the node pointed by the iterator
+    return this->pointer;
+}
+
+template <class ListType>
 bool FedeListIterator<ListType>::operator==(const FedeListIterator<ListType> &right) {
     //compare the two position, if the two iterators point to the same position they are the same object
     return (this->position==right.position);
@@ -173,3 +179,5 @@ void FedeListIterator<ListType>::setNode(Node<ListType> &node, int position) {
     //assign the given position
     this->position = position;
 }
+
+
