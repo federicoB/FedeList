@@ -166,3 +166,10 @@ FedeListIterator<ListType>& FedeListIterator<ListType>::operator=(const FedeList
         return *this;
 }
 
+template<class ListType>
+void FedeListIterator<ListType>::setNode(Node<ListType> &node, int position) {
+    //assign the given node
+    this->pointer = &node;
+    //assign the given position
+    this->position = position;
+}
