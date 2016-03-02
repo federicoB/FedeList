@@ -54,32 +54,32 @@ Node<ListType> &FedeListIterator<ListType>::operator*() {
 
 template <class ListType>
 bool FedeListIterator<ListType>::operator==(const FedeListIterator<ListType> &right) {
-    return false;
+    return (this->position==right.position);
 }
 
 template <class ListType>
 bool FedeListIterator<ListType>::operator!=(const FedeListIterator<ListType> &right) {
-    return false;
+    return !(*this==right);
 }
 
 template <class ListType>
 bool FedeListIterator<ListType>::operator<(const FedeListIterator<ListType> &right) {
-    return false;
+    return (this->position<right.position);
 }
 
 template <class ListType>
 bool FedeListIterator<ListType>::operator<=(const FedeListIterator<ListType> &right) {
-    return false;
+    return (*this<right) || (*this==right);
 }
 
 template <class ListType>
 bool FedeListIterator<ListType>::operator>(const FedeListIterator<ListType> &right) {
-    return false;
+    return !(*this<right) && !(*this==right);
 }
 
 template <class ListType>
 bool FedeListIterator<ListType>::operator>=(const FedeListIterator<ListType> &right) {
-    return false;
+    return !(*this<right);
 }
 
 template <class ListType>
