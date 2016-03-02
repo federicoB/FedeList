@@ -119,15 +119,27 @@ public:
     FedeListIterator<ListType> operator-(const FedeListIterator<ListType> &right);
     
     /**
-     * Advance the iterator to a position.
-     * @return FedeListIterator&lt;ListType*&gt;*: the new iterator.
+     * Advance the iterator to a position but return the old operator.
+     * @return FedeListIterator&lt;ListType*&gt;*: the old iterator.
      */
     FedeListIterator<ListType>& operator++();
     
+    /**
+     * Advance the iterator to a position and return it.
+     * @return FedeListIterator&lt;ListType*&gt;*: the iterator increased.
+     */
     FedeListIterator<ListType>& operator++( int );
-
+    
+    /**
+     * Decrease the iterator to a position but return the old iterator.
+     * @return FedeListIterator&lt;ListType*&gt;*: the old iterator.
+     */
     FedeListIterator<ListType>& operator--();
-
+    
+    /**
+     * Decrese the iterator to a position and return it.
+     * @return FedeListIterator&lt;ListType*&gt;*: the iterator increased.
+     */
     FedeListIterator<ListType>& operator--( int );
     
     void setNode(Node<ListType>& node,int position);
