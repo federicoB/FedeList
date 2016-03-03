@@ -46,7 +46,7 @@ FedeList<ListType>::~FedeList(){
     //set current node as the head
     FedeListIterator<ListType> current = headCursor;
     //while current is not NULL
-    while(current != NULL){
+    while (*current != NULL) {
         //set the next as the current next
         FedeListIterator<ListType> next = current;
         next++;

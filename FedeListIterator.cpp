@@ -5,6 +5,9 @@
  * Created on 13 gennaio 2016, 21.49
  */
 
+#ifndef FedeListIteratorSource
+#define FedeListIteratorSource
+
 #include "FedeListIterator.h"
 
 template <class ListType>
@@ -190,3 +193,4 @@ void FedeListIterator<ListType>::setPosition(int position) {
     this->position = position;
 }
 
+#endif

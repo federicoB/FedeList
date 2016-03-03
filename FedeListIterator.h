@@ -160,5 +160,7 @@ private:
     Node<ListType> *pointer;
 };
 
+#include "FedeListIterator.cpp"
+
 #endif	/* FEDELISTITERATOR_H */
 
