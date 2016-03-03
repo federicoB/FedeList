@@ -107,7 +107,7 @@ FedeList<ListType>* FedeList<ListType>::push_front(ListType element){
 template <class ListType>
 FedeList<ListType>* FedeList<ListType>::push_back(ListType element){
     //if tail cursor is not NULL
-    if (tailCursor != NULL){
+    if (*tailCursor != NULL) {
         //create the node to add with the given element and the current tail as prev
         NodePointer toAdd = new Node<ListType>(element, *tailCursor, NULL);
         //set the node to add as the next of the current tail node
@@ -200,7 +200,8 @@ ListType FedeList<ListType>::pop_front(){
         //else (only one element)
         else {
             //set head cursor, cursor and tail cursor as NULL
-            cursor = headCursor = tailCursor = NULL;
+            cursor.setNode(NULL, -1);
+            headCursor = tailCursor = cursor;
             //set the cursor position as -1 (empty list)
             cursorPosition = -1;
         }
