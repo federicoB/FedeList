@@ -288,7 +288,7 @@ FedeList<ListType>* FedeList<ListType>::remove(int position){
             //move the cursor to the position
             moveCursor(position);
             //the node to delete
-            NodePointer toDelete = cursor;
+            NodePointer toDelete = *cursor;
             //---- bypass the node to delete ----
             //save the previous
             NodePointer previus = toDelete -> getPrev();
@@ -301,7 +301,7 @@ FedeList<ListType>* FedeList<ListType>::remove(int position){
             //---- end bypass ----
             //set the cursor as next (should not be nullbecause is checked if it is or not the last element)
             //(can't use moveCursor because cursorPosition must remain the same)
-            cursor = next; 
+            cursor.setNode(next, cursor.getPosition());
             //delete the node to delete
             delete toDelete;
             //decrease the list size
@@ -357,7 +357,7 @@ int FedeList<ListType>::getSize() const{
 template <class ListType>
 void FedeList<ListType>::prepareSearch(int position){
     //compute the distance between the current cursor position and the searched position
-    int cursorDistance = abs(cursorPosition-position);
+    int cursorDistance = abs(cursor.getPosition() - position);
     //the distance position-head is position
     int headDistance = position;
     //the distance position-head is position
@@ -369,15 +369,11 @@ void FedeList<ListType>::prepareSearch(int position){
         if (headDistance <= tailDistance){
             //set the cursor as the head
             cursor = headCursor;
-            //set cursor position as 0
-            cursorPosition = 0;
         }
         //else if tail distance is less than head distance
         else {
             //set the cursor as the tail
             cursor = tailCursor;
-            //set cursor position as list size - 1
-            cursorPosition = (listSize - 1);
         }
     }
 }
@@ -388,25 +384,7 @@ void FedeList<ListType>::moveCursor(int position){
     if (isValidPosition(position)){
         //prepare to search
         prepareSearch(position);
-        //check if the position is ahead to the cursor
-        bool isPositionAhead = cursorPosition<position;
-        //while the cursor position is not equal than the position
-        while (cursorPosition != position){
-            //if the position is ahead
-            if (isPositionAhead){
-                //move the cursor ahead
-                cursor = cursor -> getNext();
-                //increase the cursor position
-                cursorPosition++;
-            } 
-            //else (position is before the cursor)
-            else {
-                //move the cursor back
-                cursor = cursor -> getPrev();
-                //decrease the cursor position
-                cursorPosition--;
-            }
-        }
+        cursor[position];
     }
     //else (not valid position)
     else{
