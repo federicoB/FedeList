@@ -48,12 +48,12 @@ FedeListIterator<ListType> &FedeListIterator<ListType>::operator[](const int pos
         //if the position is ahead
         if (isPositionAhead) {
             //advance the iterator
-            *this++;
+            (*this)++;
         }
             //else (position is before the iterator)
         else {
             //decrease the iterator
-            *this--;
+            (*this)--;
         }
     }
     return *this;

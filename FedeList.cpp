@@ -62,8 +62,6 @@ template <class ListType>
 void FedeList<ListType>::init(){
     //set all cursors to NULL
     headCursor = tailCursor = cursor = FedeListIterator<ListType>();
-    //in this way at the first push the cursor will point to the head/tail
-    cursorPosition = -1;
     //set the size of the list as 0
     listSize = 0;
 }
@@ -146,7 +144,7 @@ FedeList<ListType>* FedeList<ListType>::insert(ListType element, int position){
         //set the node to insert as the previous
         cursor -> setPrev(nodeToInsert);
         //increase the cursor position
-        cursorPosition++;
+        cursor.setPosition(cursor.getPosition() + 1);
         //increase the list size
         listSize++;
     }
@@ -203,7 +201,7 @@ ListType FedeList<ListType>::pop_front(){
             cursor.setNode(NULL, -1);
             headCursor = tailCursor = cursor;
             //set the cursor position as -1 (empty list)
-            cursorPosition = -1;
+            cursor.setPosition(-1);
         }
         //delete the node to delete
         delete toDelete;

@@ -133,8 +133,6 @@ protected:
     FedeListIterator<ListType> tailCursor;
     //a sliding cursor
     FedeListIterator<ListType> cursor;
-    //the position of the cursor inside of the list, 0 based (-1 in case of empty list)
-    int cursorPosition;
     //the lenght of the list
     int listSize;
     
