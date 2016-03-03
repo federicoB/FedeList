@@ -167,11 +167,11 @@ FedeListIterator<ListType> &FedeListIterator<ListType>::operator--(int i) {
 template<class ListType>
 FedeListIterator<ListType>& FedeListIterator<ListType>::operator=(const FedeListIterator<ListType>& right) {
         // Check for self-assignment!
-        if (this == &right) // Same object?
+    if (*this == right) // Same object?
             return *this; // Yes, so skip assignment, and just return *this.
-        // Deallocate, allocate new space, copy values...
         //copy pointers
         this->pointer = right.pointer;
+    this->position = right.position;
         return *this;
 }
 

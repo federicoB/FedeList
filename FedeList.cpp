@@ -14,20 +14,21 @@
 
 template <class ListType>
 FedeList<ListType>::FedeList(){
-    //call the init
+    //call the initialization function
     this -> init();
 };
 
 template <class ListType>
 FedeList<ListType>::FedeList(ListType element){
-    //call the init
+    //call the initialization function
     this -> init();
-    //push the element
+    //push the given element
     this -> push_back(element);
 }
 
 template <class ListType>
 FedeList<ListType>::FedeList(const FedeList& orig) {
+    //call the initialization function
     this -> init();
     //i can't access orig nodes 'cause it would change orig and it's const for c++ standard.
     //so i create a tmpCopy that point to same nodes but i can modify it.
@@ -35,8 +36,11 @@ FedeList<ListType>::FedeList(const FedeList& orig) {
     tmpCopy.headCursor = orig.headCursor;
     tmpCopy.cursor = orig.headCursor;
     tmpCopy.listSize = orig.listSize;
+    //save the origin size in a variabile because it would be modified by the loop
     int originSize = orig.getSize();
+    //for the origin size
     for (int i = 0; i < originSize; i++) {
+        //add the element from the tmpy copy to current FedeList
         this->push_back(tmpCopy.get(i));
     }
 }
@@ -69,7 +73,7 @@ void FedeList<ListType>::init(){
 
 template <class ListType>
 FedeList<ListType>* FedeList<ListType>::push_front(ListType element){
-    //if head cursor is not NULL
+    //if head cursor is not NULL (not empty list)
     if (*headCursor != NULL) {
         //create the node to add with the given element and the current head as next
         NodePointer toAdd = new Node<ListType>(element, NULL, *(headCursor));
@@ -77,27 +81,20 @@ FedeList<ListType>* FedeList<ListType>::push_front(ListType element){
         headCursor->setPrev(toAdd);
         //set the node to add as the head cursor
         headCursor.setNode(toAdd, 0);
+        //leave the curso where it is
+        //increase the cursor position
+        cursor.setPosition(cursor.getPosition() + 1);
+        tailCursor.setPosition(tailCursor.getPosition() + 1);
     }
     //else (empty list)
     else {
         //create the node to add with the given element and save it in head cursor
         headCursor.setNode(new Node<ListType>(element), 0);
         //set the tail as the head
-        tailCursor = headCursor;
+        tailCursor = cursor = headCursor;
     }
     //increase the list size
     listSize++;
-    //if the list was empty (listsize == 1)
-    if(listSize == 1){
-        //manually set the cursor to the head
-        cursor = headCursor;
-    }
-    //else (the cursor was already on an element and now it has been shifted)
-    else{
-        //leave the curso where it is
-        //increase the cursor position
-        cursor.setPosition(cursor.getPosition() + 1);
-    }
     //return this list for method chaining
     return (this);
 };
@@ -118,15 +115,10 @@ FedeList<ListType>* FedeList<ListType>::push_back(ListType element){
         //create the node to add with the given element and save it in tail cursor
         tailCursor.setNode(new Node<ListType>(element), listSize);
         //set the head as the tail
-        headCursor = tailCursor;
+        headCursor = cursor = tailCursor;
     }
     //increase the list size
     listSize++;
-    //if the list was empty (listsize == 1)
-    if(listSize == 1){
-        //manually set the cursor to the head
-        cursor = headCursor;
-    }
     //return this list for method chaining
     return (this);
 };
@@ -138,7 +130,7 @@ FedeList<ListType>* FedeList<ListType>::insert(ListType element, int position){
         //move the cursor over the position
         moveCursor(position);
         //create a new node with the given element, the previous and the current (future next) node
-        NodePointer nodeToInsert = new Node<ListType>(element, cursor -> getPrev(), cursor);
+        NodePointer nodeToInsert = new Node<ListType>(element, cursor->getPrev(), *cursor);
         //set the node to insert as the next of the previous
         cursor -> getPrev() -> setNext(nodeToInsert);
         //set the node to insert as the previous
@@ -243,7 +235,8 @@ ListType FedeList<ListType>::pop_back(){
         //else (only one element)
         else {
             //set head cursor, tail cursor and cursor as NULL
-            headCursor = tailCursor = cursor = NULL;
+            cursor.setNode(NULL, -1);
+            headCursor = tailCursor = cursor;
             //cursor position is already set as -1
         }
         //delete the node to delete
@@ -301,6 +294,8 @@ FedeList<ListType>* FedeList<ListType>::remove(int position){
             //set the cursor as next (should not be nullbecause is checked if it is or not the last element)
             //(can't use moveCursor because cursorPosition must remain the same)
             cursor.setNode(next, cursor.getPosition());
+            //decrease tailcursor position
+            tailCursor.setPosition(tailCursor.getPosition() - 1);
             //delete the node to delete
             delete toDelete;
             //decrease the list size
