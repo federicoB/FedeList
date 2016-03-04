@@ -40,8 +40,6 @@ public:
      */
     virtual ~FedeListIterator();
 
-    //TODO override operator  [] , < , > ,...
-
     /**
      * Override assignemnt operator.
      * @param right FedeListIterator&lt;ListType*&gt;& : the object to assign.

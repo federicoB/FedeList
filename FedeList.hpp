@@ -103,14 +103,14 @@ class FedeList {
      * @return FedeList*: a pointer to the list object for method chaining.
      * @throws out_of_range: throw a out of range exception if the position is invalid.
      */
-    FedeList* remove(int position);  
-    
-     /**
-     * Remove from the list the element that is equal to the element given.
-     * NOTE: list type comparison is made through == operator.
-     * @param element ListType: the element used for the comparison.
-     * @return FedeList*: a pointer to the list object for method chaining.
-     */
+    FedeList* remove(int position);
+
+    /**
+    * Remove from the list the first occurrence of the element that is equal to the element given.
+    * NOTE: list type comparison is made through == operator.
+    * @param element ListType: the element used for the comparison.
+    * @return FedeList*: a pointer to the list object for method chaining.
+    */
     FedeList* removeByElement(ListType element); 
     
     /**
@@ -118,15 +118,11 @@ class FedeList {
      * @return int: the size of the list.
      */
     int getSize() const;
-    
-    //TODO remove this 
+
     //define Node<ListType>* as NodePointer
-    typedef Node<ListType>* NodePointer; 
-    
-    //TODO override operator []
+    typedef Node<ListType> *NodePointer;
     
 protected:
-    //TODO substiture NodePointer with FedeListIterator
     //a pointer that always point to the head of the list
     FedeListIterator<ListType> headCursor;
     //a pointer that always point to the tail of the list
