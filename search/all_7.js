@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['setnext',['setNext',['../classNode.html#a7513eadfd24f423b0e27324e3b03a7b9',1,'Node']]],
-  ['setprev',['setPrev',['../classNode.html#a657b653be09fb550bced25d2563216e1',1,'Node']]]
+  ['remove',['remove',['../classFedeList.html#a950a7778e5cadf7e2502acbdc2404e6c',1,'FedeList']]],
+  ['removebyelement',['removeByElement',['../classFedeList.html#a4bdd7a91c16c4157914d9f413fe28384',1,'FedeList']]]
 ];
