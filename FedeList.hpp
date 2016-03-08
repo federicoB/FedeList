@@ -121,6 +121,13 @@ class FedeList {
 
     //define Node<ListType>* as NodePointer
     typedef Node<ListType> *NodePointer;
+
+    /**
+     * Sort the elements of the list.
+     * It use Bubble-Sort algoritm.
+     * If the elements on the list are not comparable undefined behaviour occurr.
+     */
+    void sort();
     
 protected:
     //a pointer that always point to the head of the list

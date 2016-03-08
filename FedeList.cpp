@@ -137,6 +137,8 @@ FedeList<ListType>* FedeList<ListType>::insert(ListType element, int position){
         cursor -> setPrev(nodeToInsert);
         //increase the cursor position
         cursor.setPosition(cursor.getPosition() + 1);
+        //increase the tailcursor position
+        tailCursor.setPosition(tailCursor.getPosition() + 1);
         //increase the list size
         listSize++;
     }
@@ -182,6 +184,8 @@ ListType FedeList<ListType>::pop_front(){
                 //decrease the cursor position
                 cursor.setPosition(cursor.getPosition() - 1);
             }
+            //decrease the tailcursor position
+            tailCursor.setPosition(tailCursor.getPosition() - 1);
             //set head cursor as the next of the current head cursor
             headCursor.setNode(headCursor->getNext(), headCursor.getPosition());
             //set the previous of the head cursor as NULL
@@ -393,6 +397,35 @@ bool FedeList<ListType>::isValidPosition(int position){
     return ((position >= 0) && (position <= (listSize - 1)));
 }
 
-
+template<class ListType>
+void FedeList<ListType>::sort() {
+    //declare a constant temporary variable for the list size
+    const int size = this->listSize;
+    //declare i and j for indexes of the cycles
+    int i, j;
+    //declare a variabile for swapping values
+    ListType tmp;
+    //for the list size times
+    for (i = 0; i < size; i++) {
+        //for the list size -1 - i times
+        for (j = 0; j < size - 1 - i; j++) {
+            //if the current value is greater than its successor
+            if (this->get(j) > this->get(j + 1)) {
+                //swap the values
+                //by saving in the temp variable the value of node  in positon j
+                tmp = this->get(j);
+                //TODO creare a set method for don't do the remove+insert operations
+                //remove the node in position j
+                this->remove(j);
+                //duplicate the node in position j (the old node in postion j+1)
+                this->insert(this->get(j), j);
+                //remove the node in position j+1
+                this->remove(j + 1);
+                //insert the value of the old node in position j in position j+1
+                this->insert(tmp, j + 1);
+            }
+        }
+    }
+}
 
 #endif	/* FEDELIST_CPP */
